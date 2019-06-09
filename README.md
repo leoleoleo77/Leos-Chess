@@ -1,2 +1,0 @@
-# Leos-Chess
-Chess
