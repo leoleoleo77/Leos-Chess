@@ -8,7 +8,6 @@
 <script>
 let moving = false;
 let turn = "white";
-var castling = false;
 var whiteleft = false;
 var whiteright = false;
 var blackright = false;
@@ -17,6 +16,7 @@ var blackleft = false;
 function onClick(id) {
   checkIfMoved()
   if (moving === false) {
+    var castling = false;
     moving = true;
     if (turn === "white") {
       disableBlack()
