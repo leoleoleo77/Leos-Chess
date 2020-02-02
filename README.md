@@ -5,7 +5,7 @@ This is an experimental chess project which I created in my free time.
 
 It uses Javascript, HTML and some basic CSS.
 
-You can either play against a human, or againts my super intelligent AI (still in beta).
+You can either play against another human, or againts my super intelligent AI (still in beta).
 
 Any comments or contributions are welcome.
 
