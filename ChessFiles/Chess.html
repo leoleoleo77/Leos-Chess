@@ -4,8 +4,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <script src="firstScript.js"></script>
-<button type="button" style="background-color:#ffb84d;background-image:url(http://www.transparenttextures.com/patterns/wood-pattern.png);
-;color:black;width:40px;height:40px;" value="bR" id="1.8" onclick="onClick(id)" name="white" title="untouched"><i class="fas fa-chess-rook"></i></button>
+<link rel="stylesheet" type="text/css" href="Style.css">
+<p id="title">Leo's Chess</p>
 <p name="Board">
 <input type="button" style="background-color:#331f00;color:white;width:40px;
 height:20px;" value="a" disabled><input type="button" style="background-color:#331f00;color:white;width:40px;
@@ -115,7 +115,9 @@ height:40px;" value="2" disabled onclick="onClick()">
 ;color:white;width:40px;height:40px;" value="wR" id="8.1" onclick="onClick(id)" name="white" title="untouched"><i class="fas fa-chess-rook"></i></button><input type="button" style="background-color:#331f00;color:white;width:30px;
 height:40px;" value="1" disabled onclick="onClick()">
 </p>
-
-
+<p>
+<button id="AIID" onclick="activateActivation()">Activate AI</button>
+</p>
 <script src="secondScript.js"></script>
+<script src="scriptAI.js"></script>
 </html>
