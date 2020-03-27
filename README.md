@@ -1,4 +1,4 @@
-# Leo's-Chess
+# Leo's Chess
 Chess
 
 This is an experimental chess project which I created in my free time.
