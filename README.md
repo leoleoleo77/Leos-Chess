@@ -8,6 +8,8 @@ You can either play against another human, or againts my super intelligent AI (s
 
 Any comments or contributions are welcome.
 
+You can try it <a href="https://luckyluke77.github.io/">here</a> 
+
 Preview:
 
 ![Preview](https://github.com/LuckyLuke77/Leos-Chess/blob/master/Preview.png)
