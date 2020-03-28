@@ -8,6 +8,21 @@ var blackright = false;
 var blackleft = false;
 
 function onClick(id) {
+  var tempWhiteKingX;
+  var tempWhiteKingY;
+  var tempBlackKingX;
+  var tempBlackKingY;
+  for (l = 1; l < 9; l++) {
+    for (v = 1; v < 9; v++) {
+      if (document.getElementById(l + "." + v).value === "wK") {
+        tempWhiteKingX = l
+        tempWhiteKingY = v
+      } else if (document.getElementById(l + "." + v).value === "bK") {
+        tempBlackKingX = l
+        tempBlackKingY = v
+      }
+    }
+  }
   checkIfMoved()
   if (moving === false) {
     moving = true;
@@ -120,9 +135,16 @@ function onClick(id) {
         }
       if (AI === true) {
         activateAI()
+      } else {
+        if (checkIfDead(tempWhiteKingX, tempWhiteKingY, "b", -1)) {
+          alert("The White King is being threatened")
+        }
+        if (checkIfDead(tempBlackKingX, tempBlackKingY)) {
+          alert("The Black King is being threatened")
+        }
       }
+    }
   }
-}
 
 function whitePawn(id) {
   Color = "w";
