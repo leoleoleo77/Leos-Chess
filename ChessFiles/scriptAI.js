@@ -6,7 +6,9 @@ function activateActivation() {
   document.getElementById("AIID").innerHTML = "AI Activated"
 }
 
+
 function activateAI() {
+  var blackP = 0;
   var kingXai;
   var kingYai;
   for (l = 1; l < 9; l++) {
@@ -15,8 +17,12 @@ function activateAI() {
         kingXai = l
         kingYai = v
       }
+      if (document.getElementById(l + "." + v).value.slice(0, 1) === "b") {
+        blackP += 1;
+      }
     }
   }
+
   document.getElementById("turn").value = "w";
   enableAll();
   disableBlack();
@@ -52,9 +58,9 @@ function activateAI() {
             } else if (typeAI === "H") {
               horseAI(idAI);
             } else if (typeAI === "Q") {
-              //queenAI(idAI);
+              queenAI(idAI);
             } else if (typeAI === "K") {
-              //whiteKing(id);
+              kingAI(idAI);
             }
           }
       }
@@ -272,7 +278,7 @@ function activateAI() {
         deathPoints = 5.1;
       }
       for (k = 0; k < 4; k++) {
-        tempPoints = 5.1 + deathPoints;
+        tempPoints = 3.33 + deathPoints;
         if (k == "0") {
           let yR = + valueYai
           if (valueYai != 1) {
@@ -350,221 +356,252 @@ function activateAI() {
           }
         }
       }
-    } 
-
-    
-    function checkIfDead(x, y) {
-      dead = false;
-      //Checks if a Pawn can kill it
-      if (y != 1) {
-        if (x >= 2 && x <= 7) {
-          if ((document.getElementById((Number(x) + 1) + "." + (Number(y) - 1)).value === "wP") || (document.getElementById((Number(x) - 1) + "." + (Number(y) - 1)).value === "wP")) {
-            dead = true;
-          }
-        } else if (x == 1) {
-          if (document.getElementById((Number(x) + 1) + "." + (Number(y) - 1)).value === "wP") {
-            dead = true;
-          }
-        } else if (x == 8) {
-          if (document.getElementById((Number(x) - 1) + "." + (Number(y) - 1)).value === "wP") {
-            dead = true;
-          }
-        }
-      }
-      //Checks if a Horse can kill it
-      if (y >= 3) {
-        if (x >= 2) {
-          if (document.getElementById((Number(x) - 1) + "." + (Number(y) - 2)).value === "wH") {
-            dead = true;
-          }
-        }
-        if (x <= 7) {
-          if (document.getElementById((Number(x) + 1) + "." + (Number(y) - 2)).value === "wH") {
-            dead = true;
-          }
-        }
-      } else if (y <= 6) {
-        if (x >= 2) {
-          if (document.getElementById((Number(x) - 1) + "." + (Number(y) + 2)).value === "wH") {
-            dead = true;
-          }
-        }
-        if (x <= 7) {
-          if (document.getElementById((Number(x) + 1) + "." + (Number(y) + 2)).value === "wH") {
-            dead = true;
-          }
-        }
-      }
-      if (x >= 3) {
-        if (y >= 2) {
-          if (document.getElementById((Number(x) - 2) + "." + (Number(y) - 1)).value === "wH") {
-            dead = true;
-          }
-        } else if (y <= 7) {
-          if (document.getElementById((Number(x) - 2) + "." + (Number(y) + 1)).value === "wH") {
-            dead = true;
-          }
-        }
-      } else if (x <= 6) {
-        if (y >= 2) {
-          if (document.getElementById((Number(x) + 2) + "." + (Number(y) - 1)).value === "wH") {
-            dead = true;
-          }
-        } else if (y <= 7) {
-          if (document.getElementById((Number(x) + 2) + "." + (Number(y) + 1)).value === "wH") {
-            dead = true;
-          }
-        }
-      }
-      //Checks if a Bishop or the Queen can kill it
-      if (x < 8 && y > 1) {
-        let deadX = + x
-        let deadY = + y
-        while (deadX < 8 && deadY > 1) {
-          deadX += 1
-          deadY -= 1
-          if (document.getElementById(deadX + "." + deadY).value === "wB" || document.getElementById(deadX + "." + deadY).value === "wQ") {
-            dead = true;
-            break;
-          } else if (document.getElementById(deadX + "." + deadY).value != " ") {
-            break;
-          }
-        }
-      }
-      if (x > 1 && y > 1) {
-        let deadX = + x
-        let deadY = + y
-        while (deadX > 1 && deadY > 1) {
-          deadX -= 1
-          deadY -= 1
-          if (document.getElementById(deadX + "." + deadY).value === "wB" || document.getElementById(deadX + "." + deadY).value === "wQ") {
-            dead = true;
-            break;
-          } else if (document.getElementById(deadX + "." + deadY).value != " ") {
-            break;
-          }
-        } 
-      }
-      if (x > 1 && y < 8) {
-        let deadX = + x
-        let deadY = + y
-        while (deadX > 1 && deadY < 8) {
-          deadX -= 1
-          deadY += 1
-          if (document.getElementById(deadX + "." + deadY).value === "wB" || document.getElementById(deadX + "." + deadY).value === "wQ") {
-            dead = true;
-            break;
-          } else if (document.getElementById(deadX + "." + deadY).value != " ") {
-            break;
-          }
-        }
-      }
-      if (x < 8 && y < 8) {
-        let deadX = + x
-        let deadY = + y
-        while (deadX < 8 && deadY < 8) {
-          deadX += 1
-          deadY += 1
-          if (document.getElementById(deadX + "." + deadY).value === "wB" || document.getElementById(deadX + "." + deadY).value === "wQ") {
-            dead = true;
-            break;
-          } else if (document.getElementById(deadX + "." + deadY).value != " ") {
-            break;
-          }
-        }
-      } 
-      //checks if a Rook or the Queen can kill it
-      if (x != 8) {
-        let deadX = + x
-        while (deadX < 8) {
-          deadX += 1
-          if (document.getElementById(deadX + "." + y).value === "wR" || document.getElementById(deadX + "." + y).value === "wQ")  {
-            dead = true;
-            break;
-          } else if (document.getElementById(deadX + "." + y).value != " ") {
-            break;
-          }
-        }
-      }
-      if (x != 1) {
-        let deadX = + x
-        while (deadX > 1) {
-          deadX -= 1
-          if (document.getElementById(deadX + "." + y).value === "wR" || document.getElementById(deadX + "." + y).value === "wQ")  {
-            dead = true;
-            break;
-          } else if (document.getElementById(deadX + "." + y).value != " ") {
-            break;
-          }
-        }
-      }
-      if (y != 8) {
-        let deadY = + y
-        while (deadY < 8) {
-          deadY += 1
-          if (document.getElementById(x + "." + deadY).value === "wR" || document.getElementById(x + "." + deadY).value === "wQ")  {
-            dead = true;
-            break;
-          } else if (document.getElementById(x + "." + deadY).value != " ") {
-            break;
-          }
-        }
-      }
-      if (y != 1) {
-        let deadY = + y
-        while (deadY > 1) {
-          deadY -= 1
-          if (document.getElementById(x + "." + deadY).value === "wR" || document.getElementById(x + "." + deadY).value === "wQ")  {
-            dead = true;
-            break;
-          } else if (document.getElementById(x + "." + deadY).value != " ") {
-            break;
-          }
-        }
-      }
-      //Checks if the King can kill it
-      if (y >= 2) {
-        if (document.getElementById(x + "." + String(Number(y) - 1)).value === "wK") {
-          dead = true;
-        }
-        if (x <= 7) {
-          if (document.getElementById(String(Number(x) + 1) + "." + String(Number(y) - 1)).value === "wK") {
-            dead = true;
-          }
-        }
-        if (x >= 2) {
-          if (document.getElementById(String(Number(x) - 1) + "." + String(Number(y) - 1)).value === "wK") {
-            dead = true;
-          }
-        }
-      }
-      if (y <= 7) {
-        if (document.getElementById(x + "." + String(Number(y) + 1)).value === "wK") {
-          dead = true;
-        }
-        if (x <= 7) {
-          if (document.getElementById(String(Number(x) + 1) + "." + String(Number(y) + 1)).value === "wK") {
-            dead = true;
-          }
-        }
-        if (x >= 2) {
-          if (document.getElementById(String(Number(x) - 1) + "." + String(Number(y) + 1)).value === "wK") {
-            dead = true;
-          }
-        }
-      }
-      if (x >= 2) {
-        if (document.getElementById(String(Number(x) - 1) + "." + y).value === "wK") {
-          dead = true;
-        }
-      }
-      if (x <= 7) {
-        if (document.getElementById(String(Number(x) + 1) + "." + y).value === "wK") {
-          dead = true;
-        }
-      }
-      return dead;
     }
+    
+    function queenAI(id) {
+      playValue = "bQ"
+      valueXai = document.getElementById(id).id.slice(0, 1);
+      valueYai = document.getElementById(id).id.slice(2, 3);
+      if (checkIfDead(valueXai, valueYai) === true) {
+        deathPoints = 10;
+      }
+      for (k = 0; k < 8; k++) {
+        var tempPointer = 8.8 + deathPoints - (blackP / 2);
+        tempPoints = tempPointer;
+        if (k == "0") {
+          let yR = + valueYai
+          if (valueYai != 1) {
+            while (yR > 1) {
+              yR -= 1 
+              if (document.getElementById(valueXai + "." + yR).value.slice(0, 1) === " ") {
+                moveID = (valueXai + "." + yR);
+                pointSystem(moveID, 10)
+                tempPoints = tempPointer;     
+              } else if (document.getElementById(valueXai + "." + yR).value.slice(0, 1) === "w") {
+                moveID = (valueXai + "." + yR);
+                pointSystem(moveID, 10)
+                break;
+              } else {
+                break;
+              }
+            }
+          }
+        }
+        if (k == "1") {
+          let yR = + valueYai
+          if (valueYai != 8) {
+            while (yR < 8) {
+              yR += 1 
+              if (document.getElementById(valueXai + "." + yR).value.slice(0, 1) === " ") {
+                moveID = (valueXai + "." + yR);
+                pointSystem(moveID, 10);
+                tempPoints = tempPointer;
+              } else if (document.getElementById(valueXai + "." + yR).value.slice(0, 1) === "w") {
+                moveID = (valueXai + "." + yR);
+                pointSystem(moveID, 10)
+                break;
+              } else {
+                break;
+              }
+            }
+          }
+        }
+        if (k == "2") {
+          let xR = + valueXai
+          if (valueXai != 8) {
+            while (xR < 8) {
+              xR += 1 
+              if (document.getElementById(xR + "." + valueYai).value.slice(0, 1) === " ") {
+                moveID = (xR + "." + valueYai);
+                pointSystem(moveID, 10);
+                tempPoints = 10 + deathPoints;
+              } else if (document.getElementById(xR + "." + valueYai).value.slice(0, 1) === "w") {
+                moveID = (xR + "." + valueYai);
+                pointSystem(moveID, 10);
+                break;
+              } else {
+                break;
+              }
+            }
+          }
+        }
+        if (k == "3") {
+          let xR = + valueXai
+          if (valueXai != 1) {
+            while (xR > 1) {
+              xR -= 1 
+              if (document.getElementById(xR + "." + valueYai).value.slice(0, 1) === " ") {
+                moveID = (xR + "." + valueYai);
+                pointSystem(moveID, 10);
+                tempPoints = tempPointer;
+              } else if (document.getElementById(xR + "." + valueYai).value.slice(0, 1) === "w") {
+                moveID = (xR + "." + valueYai);
+                pointSystem(moveID, 10);
+                break;
+              } else {
+                break;
+              }
+            }
+          }
+        }
+        if (k == "4") {
+          let xB = + valueXai
+          let yB = + valueYai
+          while (xB < 8 && yB > 1) {
+            xB += 1
+            yB -= 1
+            if (document.getElementById(xB + "." + yB).value.slice(0, 1) != "b") {
+              moveID = (xB + "." + yB);
+              pointSystem(moveID, 10)
+              tempPoints = tempPointer;
+              if (document.getElementById(moveID).value.slice(0, 1) === "w") {
+                break
+              }
+            } else {
+              break;
+            }
+          }
+        }
+        if (k == "5") {
+          let xB = + valueXai
+          let yB = + valueYai
+          while (xB > 1 && yB > 1) {
+            xB -= 1
+            yB -= 1
+            if (document.getElementById(xB + "." + yB).value.slice(0, 1) != "b") {
+              moveID = (xB + "." + yB);
+              pointSystem(moveID, 10)
+              tempPoints = tempPointer;
+              if (document.getElementById(moveID).value.slice(0, 1) === "w") {
+                break
+              }
+            } else {
+              break;
+            }
+          }
+        }
+        if (k == "6") {
+          let xB = + valueXai
+          let yB = + valueYai
+          while (xB > 1 && yB < 8) {
+            xB -= 1
+            yB += 1
+            if (document.getElementById(xB + "." + yB).value.slice(0, 1) != "b") {
+              moveID = (xB + "." + yB);
+              pointSystem(moveID, 10)
+              tempPoints = tempPointer;
+              if (document.getElementById(moveID).value.slice(0, 1) === "w") {
+                break
+              }
+            } else {
+              break;
+            }
+          }
+        }
+        if (k == "7") {
+          let xB = + valueXai
+          let yB = + valueYai
+          while (xB < 8 && yB < 8) {
+            xB += 1
+            yB += 1
+            if (document.getElementById(xB + "." + yB).value.slice(0, 1) != "b") {
+              moveID = (xB + "." + yB);
+              pointSystem(moveID, 10)
+              tempPoints = tempPointer;
+              if (document.getElementById(moveID).value.slice(0, 1) === "w") {
+                break
+              }
+            } else {
+              break;
+            }
+          }
+        }
+      }
+    }
+    
+    function kingAI(id) {
+      playValue = "bK"
+      valueXai = document.getElementById(id).id.slice(0, 1);
+      valueYai = document.getElementById(id).id.slice(2, 3);
+      if (checkIfDead(valueXai, valueYai) === true) {
+        deathPoints = 100;
+      }
+      for (k = 0; k <= 7; k++) {
+        tempPoints = deathPoints + 1
+          if (k == "0") {
+            if (valueYai >= 2) {
+              if (document.getElementById(valueXai + "." + String(Number(valueYai) - 1)).value.slice(0, 1) != "b") {
+                moveID = valueXai + "." + String(Number(valueYai) - 1);
+                pointSystem(moveID, 100)
+              }
+            }
+          }
+          if (k == "1") {
+            if (valueYai >= 2) {
+              if (valueXai <= 7) {
+                if (document.getElementById(String(Number(valueXai) + 1) + "." + String(Number(valueYai) - 1)).value.slice(0, 1) != "b") {
+                  moveID = String(Number(valueXai) + 1) + "." + String(Number(valueYai) - 1);
+                  pointSystem(moveID, 100)
+                }
+              }
+            }
+          }
+          if (k == "2") {
+            if (valueYai >= 2) {
+              if (valueXai >= 2) {
+                if (document.getElementById(String(Number(valueXai) - 1) + "." + String(Number(valueYai) - 1)).value.slice(0, 1) != "b") {
+                  moveID = String(Number(valueXai) - 1) + "." + String(Number(valueYai) - 1);
+                  pointSystem(moveID, 100)
+                }
+              }
+            }
+          }
+          if (k == "3") {
+            if (valueYai <= 7) {
+              if (document.getElementById(valueXai + "." + String(Number(valueYai) + 1)).value.slice(0, 1) != "b") {
+                moveID = valueXai + "." + String(Number(valueYai) + 1);
+                pointSystem(moveID, 100)
+              }
+            }
+          }
+          if (k == "4") {
+            if (valueYai <= 7) {
+              if (valueXai <= 7) {
+                if (document.getElementById(String(Number(valueXai) + 1) + "." + String(Number(valueYai) + 1)).value.slice(0, 1) != "b") {
+                  moveID = String(Number(valueXai) + 1) + "." + String(Number(valueYai) + 1);
+                  pointSystem(moveID, 100)
+                }
+              }
+            }
+          }
+          if (k == "5") {
+            if (valueYai <= 7) {
+              if (valueXai >= 2) {
+                if (document.getElementById(String(Number(valueXai) - 1) + "." + String(Number(valueYai) + 1)).value.slice(0, 1) != "b") {
+                  moveID = String(Number(valueXai) - 1) + "." + String(Number(valueYai) + 1);
+                  pointSystem(moveID, 100)
+                }
+              }
+            }
+          }
+          if (k == "6") {
+            if (valueXai <= 7) {
+              if (document.getElementById(String(Number(valueXai) + 1) + "." + valueYai).value.slice(0, 1) != "b") {
+                moveID = String(Number(valueXai) + 1) + "." + valueYai;
+                pointSystem(moveID, 100)
+              }
+            }
+          }
+          if (k == "7") {
+            if (valueXai >= 2) {
+              if (document.getElementById(String(Number(valueXai) - 1) + "." + valueYai).value.slice(0, 1) != "b") {
+                moveID = String(Number(valueXai) - 1) + "." + valueYai;
+                pointSystem(moveID, 100)
+              }
+            }
+          }
+        }
+      }
 
     function checkScore(id) {
       eaten = document.getElementById(id).value.slice(1, 2);
@@ -580,7 +617,11 @@ function activateAI() {
     function scoreSystem(x, y) {
       distance = Math.sqrt(Math.pow(x - kingXai, 2) + Math.pow(y - kingYai, 2));
       if (playValue === "bP") {
-        tempPoints += (9 - distance)
+        if (y >= 4) {
+          tempPoints += (9 - distance)
+        } else {
+          tempPoints += (9 - distance) / 2
+        }
       } else {
         tempPoints += (9 - distance) / 2
       }
@@ -598,7 +639,7 @@ function activateAI() {
 
     function eatSystem(type) {
     if (type === "P") {
-      tempPoints += 1
+      tempPoints += 1.5
     } else if(type === "B") {
       tempPoints += 3.33
     } else if(type === "H") {
@@ -612,7 +653,7 @@ function activateAI() {
     }
     return tempPoints;
     }
-
+    
     movementAI(maxPlayValue);
 
     function movementAI(typeValue) {
@@ -623,8 +664,225 @@ function activateAI() {
       document.getElementById(eatenAI).innerHTML = iconAI
       document.getElementById(eatenAI).style = "background-color:#8c2e00;background-image:url(http://www.transparenttextures.com/patterns/wood-pattern.png);color:black;width:40px;height:40px;"
       turn = "white"
+      if (checkIfDead(kingXai, kingYai, "b", -1) === true) {
+        alert("The White King is being threatened")
+      }
+      checkIfQueen(eatenAI)
       clear();
       disableBlack();
     }
   }
+}
+
+function checkIfDead(x, y, c = "w", z = 1) {
+  dead = false;
+  //Checks if a Pawn can kill it
+  if (y != 1) {
+    if (x >= 2 && x <= 7) {
+      if ((document.getElementById((Number(x) + 1) + "." + (Number(y) - (1 * z))).value === c + "P") || (document.getElementById((Number(x) - 1) + "." + (Number(y) - (1 * z))).value === c + "P")) {
+        dead = true;
+      }
+    } else if (x == 1) {
+      if (document.getElementById((Number(x) + 1) + "." + (Number(y) - (1 * z))).value === c + "P") {
+        dead = true;
+      }
+    } else if (x == 8) {
+      if (document.getElementById((Number(x) - 1) + "." + (Number(y) - (1 * z))).value === c + "P") {
+        dead = true;
+      }
+    }
+  }
+  //Checks if a Horse can kill it
+  if (y >= 3) {
+    if (x >= 2) {
+      if (document.getElementById((Number(x) - 1) + "." + (Number(y) - 2)).value === c + "H") {
+        dead = true;
+      }
+    }
+    if (x <= 7) {
+      if (document.getElementById((Number(x) + 1) + "." + (Number(y) - 2)).value === c + "H") {
+        dead = true;
+      }
+    }
+  } else if (y <= 6) {
+    if (x >= 2) {
+      if (document.getElementById((Number(x) - 1) + "." + (Number(y) + 2)).value === c + "H") {
+        dead = true;
+      }
+    }
+    if (x <= 7) {
+      if (document.getElementById((Number(x) + 1) + "." + (Number(y) + 2)).value === c + "H") {
+        dead = true;
+      }
+    }
+  }
+  if (x >= 3) {
+    if (y >= 2) {
+      if (document.getElementById((Number(x) - 2) + "." + (Number(y) - 1)).value === c + "H") {
+        dead = true;
+      }
+    } else if (y <= 7) {
+      if (document.getElementById((Number(x) - 2) + "." + (Number(y) + 1)).value === c + "H") {
+        dead = true;
+      }
+    }
+  } else if (x <= 6) {
+    if (y >= 2) {
+      if (document.getElementById((Number(x) + 2) + "." + (Number(y) - 1)).value === c + "H") {
+        dead = true;
+      }
+    } else if (y <= 7) {
+      if (document.getElementById((Number(x) + 2) + "." + (Number(y) + 1)).value === c + "H") {
+        dead = true;
+      }
+    }
+  }
+  //Checks if a Bishop or the Queen can kill it
+  if (x < 8 && y > 1) {
+    let deadX = + x
+    let deadY = + y
+    while (deadX < 8 && deadY > 1) {
+      deadX += 1
+      deadY -= 1
+      if (document.getElementById(deadX + "." + deadY).value === c + "B" || document.getElementById(deadX + "." + deadY).value === c + "Q") {
+        dead = true;
+        break;
+      } else if (document.getElementById(deadX + "." + deadY).value != " ") {
+        break;
+      }
+    }
+  }
+  if (x > 1 && y > 1) {
+    let deadX = + x
+    let deadY = + y
+    while (deadX > 1 && deadY > 1) {
+      deadX -= 1
+      deadY -= 1
+      if (document.getElementById(deadX + "." + deadY).value === c + "B" || document.getElementById(deadX + "." + deadY).value === c + "Q") {
+        dead = true;
+        break;
+      } else if (document.getElementById(deadX + "." + deadY).value != " ") {
+        break;
+      }
+    } 
+  }
+  if (x > 1 && y < 8) {
+    let deadX = + x
+    let deadY = + y
+    while (deadX > 1 && deadY < 8) {
+      deadX -= 1
+      deadY += 1
+      if (document.getElementById(deadX + "." + deadY).value === c + "B" || document.getElementById(deadX + "." + deadY).value === c + "Q") {
+        dead = true;
+        break;
+      } else if (document.getElementById(deadX + "." + deadY).value != " ") {
+        break;
+      }
+    }
+  }
+  if (x < 8 && y < 8) {
+    let deadX = + x
+    let deadY = + y
+    while (deadX < 8 && deadY < 8) {
+      deadX += 1
+      deadY += 1
+      if (document.getElementById(deadX + "." + deadY).value === c + "B" || document.getElementById(deadX + "." + deadY).value === c + "Q") {
+        dead = true;
+        break;
+      } else if (document.getElementById(deadX + "." + deadY).value != " ") {
+        break;
+      }
+    }
+  } 
+  //checks if a Rook or the Queen can kill it
+  if (x != 8) {
+    let deadX = + x
+    while (deadX < 8) {
+      deadX += 1
+      if (document.getElementById(deadX + "." + y).value === c + "R" || document.getElementById(deadX + "." + y).value === c + "Q")  {
+        dead = true;
+        break;
+      } else if (document.getElementById(deadX + "." + y).value != " ") {
+        break;
+      }
+    }
+  }
+  if (x != 1) {
+    let deadX = + x
+    while (deadX > 1) {
+      deadX -= 1
+      if (document.getElementById(deadX + "." + y).value === c + "R" || document.getElementById(deadX + "." + y).value === c + "Q")  {
+        dead = true;
+        break;
+      } else if (document.getElementById(deadX + "." + y).value != " ") {
+        break;
+      }
+    }
+  }
+  if (y != 8) {
+    let deadY = + y
+    while (deadY < 8) {
+      deadY += 1
+      if (document.getElementById(x + "." + deadY).value === c + "R" || document.getElementById(x + "." + deadY).value === c + "Q")  {
+        dead = true;
+        break;
+      } else if (document.getElementById(x + "." + deadY).value != " ") {
+        break;
+      }
+    }
+  }
+  if (y != 1) {
+    let deadY = + y
+    while (deadY > 1) {
+      deadY -= 1
+      if (document.getElementById(x + "." + deadY).value === c + "R" || document.getElementById(x + "." + deadY).value === c + "Q")  {
+        dead = true;
+        break;
+      } else if (document.getElementById(x + "." + deadY).value != " ") {
+        break;
+      }
+    }
+  }
+  //Checks if the King can kill it
+  if (y >= 2) {
+    if (document.getElementById(x + "." + String(Number(y) - 1)).value === c + "K") {
+      dead = true;
+    }
+    if (x <= 7) {
+      if (document.getElementById(String(Number(x) + 1) + "." + String(Number(y) - 1)).value === c + "K") {
+        dead = true;
+      }
+    }
+    if (x >= 2) {
+      if (document.getElementById(String(Number(x) - 1) + "." + String(Number(y) - 1)).value === c + "K") {
+        dead = true;
+      }
+    }
+  }
+  if (y <= 7) {
+    if (document.getElementById(x + "." + String(Number(y) + 1)).value === c + "K") {
+      dead = true;
+    }
+    if (x <= 7) {
+      if (document.getElementById(String(Number(x) + 1) + "." + String(Number(y) + 1)).value === c + "K") {
+        dead = true;
+      }
+    }
+    if (x >= 2) {
+      if (document.getElementById(String(Number(x) - 1) + "." + String(Number(y) + 1)).value === c + "K") {
+        dead = true;
+      }
+    }
+  }
+  if (x >= 2) {
+    if (document.getElementById(String(Number(x) - 1) + "." + y).value === c + "K") {
+      dead = true;
+    }
+  }
+  if (x <= 7) {
+    if (document.getElementById(String(Number(x) + 1) + "." + y).value === c + "K") {
+      dead = true;
+    }
+  }
+  return dead;
 }
