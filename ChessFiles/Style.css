@@ -1,13 +1,17 @@
 p {
  text-align: center;
 }
+.pointer {
+  color: white !important;
+}
+
 body {
     background-image: url("https://wallpaperaccess.com/full/31189.jpg");
     background-size: cover;
   }
 button {
     background-color: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
-    border-color: none; 
+
 }
 
 #title {
@@ -26,4 +30,18 @@ button {
   background: transparent;
   border: none !important;
   font-size:0;
+}
+/* i have no clue as to why these work*/
+button[name="white"] {
+  border-top-color: rgba(214, 164, 91, 0.5);
+  border-left-color: rgba(214, 164, 91, 0.5);
+  border-bottom-color: rgba(214, 164, 91, 0.5);
+  border-right-color: rgba(214, 164, 91, 0.5);
+  
+}
+button:not([name="white"]) {
+  border-top-color: rgba(214, 164, 91, 0.5);
+  border-left-color: rgba(214, 164, 91, 0.5);
+  border-bottom-color: rgba(214, 164, 91, 0.5);
+  border-right-color: rgba(214, 164, 91, 0.5);
 }
