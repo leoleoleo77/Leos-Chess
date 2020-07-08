@@ -12,4 +12,4 @@ You can try it <a href="https://luckyluke77.github.io/">here</a>.
 
 Preview:
 
-![Preview](https://github.com/LuckyLuke77/Leos-Chess/blob/master/Preview.png)
+![Preview](https://github.com/LuckyLuke77/Leos-Chess/blob/master/ChessPreview.png)
