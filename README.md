@@ -8,7 +8,7 @@ You can either play against another human, or againts my super intelligent AI (s
 
 Any comments or contributions are welcome.
 
-You can try it <a href="https://luckyluke77.github.io/">here</a>.
+You can try it <a href="https://leoleoleo77.github.io/">here</a>.
 
 Preview:
 
